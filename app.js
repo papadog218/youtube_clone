@@ -1,7 +1,6 @@
 // 바벨 도입 후
 import express from "express";
-// logger 기능을 한다(무슨 요청이 어떤 라우트에서 발생했는지 시간은 얼마나 걸렸는지)
-import morgan from "morgan";
+import morgan from "morgan"; // logger 기능을 한다(무슨 요청이 어떤 라우트에서 발생했는지 시간은 얼마나 걸렸는지)
 import helmet from "helmet";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
