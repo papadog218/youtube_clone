@@ -1,13 +1,14 @@
 // 바벨 도입 후
-import express from "express";
-import morgan from "morgan"; // logger 기능을 한다(무슨 요청이 어떤 라우트에서 발생했는지 시간은 얼마나 걸렸는지)
-import helmet from "helmet";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import express from "express";
+import globalRouter from "./routers/globalRouter";
+import helmet from "helmet";
+import { localMiddleware } from "./middlewares";
+import morgan from "morgan"; // logger 기능을 한다(무슨 요청이 어떤 라우트에서 발생했는지 시간은 얼마나 걸렸는지)
+import routes from "./routes";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
-import globalRouter from "./routers/globalRouter";
-import routes from "./routes";
 
 // export default를 안했으면 아래처럼 불러와야함
 // import { userRouter } from "./routers/userRouter";
@@ -30,11 +31,13 @@ const app = express();
 app.set("view engine", "pug");
 
 // 미들웨어 재설정
+app.use(helmet()); // 그냥 보안을 위한거라고만;;
 app.use(cookieParser()); // 쿠키를 전달받아서 사용할 수 있도록 만들어줌(사용자인증)
 app.use(bodyParser.json()); // 사용자가 웹사이트로 전달하는 정보들을 검사함(form, json형태로 된 body를 검사)
 app.use(bodyParser.urlencoded({ extended: true })); // 서버로부터 온 데이터를 이해하는 방법
-app.use(helmet()); // 그냥 보안을 위한거라고만;;
 app.use(morgan("dev")); // 어플리케이션에서 발생하는 모든 일을 기록함 dev의 형식 = GET /profile 304 2.796 ms - -
+// 로컿변수를 글로벌변수로 사용하도록 만들어주는 것
+app.use(localMiddleware);
 
 // 라우터's
 app.use(routes.home, globalRouter);
