@@ -2,7 +2,7 @@ extends layouts/main
 
 block content
     .frm-container
-        form(action="/login", method="post")
+        form(action=routes.join, method="post")
             input(type="text", name="nam", placeholder="Full Name")
             input(type="email", name="eml", placeholder="email")
             input(type="password", name="pwd", placeholder="password")
