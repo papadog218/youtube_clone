@@ -1,4 +1,11 @@
 extends layouts/main
 
 block content
-    p join
+    .frm-container
+        form(action="/login", method="post")
+            input(type="text", name="nam", placeholder="Full Name")
+            input(type="email", name="eml", placeholder="email")
+            input(type="password", name="pwd", placeholder="password")
+            input(type="password", name="pwdChk", placeholder="Verify password")
+            input(type="submit", value="Join Now")
+        include ./partials/snsLogin
