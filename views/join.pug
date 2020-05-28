@@ -3,9 +3,9 @@ extends layouts/main
 block content
     .frm-container
         form(action=routes.join, method="post")
-            input(type="text", name="nam", placeholder="Full Name")
-            input(type="email", name="eml", placeholder="email")
-            input(type="password", name="pwd", placeholder="password")
-            input(type="password", name="pwdChk", placeholder="Verify password")
+            input(type="text", name="nam", placeholder="Full Name" required=true)
+            input(type="email", name="eml", placeholder="email" required=true)
+            input(type="password", name="pwd", placeholder="password" required=true)
+            input(type="password", name="pwdChk", placeholder="Verify password" required=true)
             input(type="submit", value="Join Now")
         include ./partials/snsLogin

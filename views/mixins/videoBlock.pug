@@ -5,6 +5,7 @@ mixin videoBlock(video = {})
     //- h1= video.title
     //- p= video.description
     .videoBlock
-        video.thum(src=video.videoFile, controls= true, poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217")
-        h4.title= video.title
-        h6.views= video.views
+        a(href=routes.videoDetail(video.id))
+            video.thum(src=video.videoFile, controls= true, poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217")
+            h4.title= video.title
+            h6.views= video.views

@@ -3,7 +3,7 @@ extends layouts/main
 block content
     .frm-container
         form(action=routes.login, method="post")
-            input(type="email", name="eml", placeholder="email")
-            input(type="password", name="pwd", placeholder="password")
+            input(type="email", name="eml", placeholder="email" required=true)
+            input(type="password", name="pwd", placeholder="password" required=true)
             input(type="submit", value="Log In")
         include ./partials/snsLogin
