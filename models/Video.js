@@ -15,10 +15,14 @@ const VideoSchema = new mogoose.Schema({
         type: Number,
         default: 0
     },
-    createAt: {
+    createdAt: {
         type: Date,
         default: Date.now
     }
+    ,comments: [{
+        type: mogoose.Schema.Types.ObjectId,
+        ref: "Comment"
+    }] // 해당 비디오와 댓글을 연결시키는 두번째 방법 (모든 댓글의ID를 배열로 비디오에 넣는법)
 });
 
 const model = mogoose.model("Video", VideoSchema);
