@@ -37,7 +37,7 @@ app.use(bodyParser.json()); // 사용자가 웹사이트로 전달하는 정보�
 app.use(bodyParser.urlencoded({ extended: true })); // 서버로부터 온 데이터를 이해하는 방법
 app.use(morgan("dev")); // 어플리케이션에서 발생하는 모든 일을 기록함 dev의 형식 = GET /profile 304 2.796 ms - -
 
-// 로컿변수를 글로벌변수로 사용하도록 만들어주는 것
+// 로컬변수를 글로벌변수로 사용하도록 만들어주는 것
 app.use(localMiddleware);
 
 // 라우터's
