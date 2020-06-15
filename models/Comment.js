@@ -1,4 +1,4 @@
-import mogoose, { Mongoose } from "mongoose";
+import mogoose from "mongoose";
 
 const CommentSchema = new mogoose.Schema({
     text: {
@@ -18,4 +18,4 @@ const CommentSchema = new mogoose.Schema({
 
 const model = mogoose.model("Comment", CommentSchema);
 
-export default "model";
+export default model;

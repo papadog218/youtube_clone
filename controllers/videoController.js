@@ -10,7 +10,7 @@ export const home = async (req, res) => {
     // async 없이는 사용못함
     // 에러가나도 뒤의 render 를 실행할 것임으로 try~catch로 잡아줌
     try {
-        const videos = await Video.find();
+        const videos = await Video.find({});
         // console.log(videos);
         res.render("home", { pageTitle:"Home", videos });
     } catch (e) {
