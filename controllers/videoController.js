@@ -34,6 +34,8 @@ export const postUpload = (req, res) => {
         body: { file, title, description }
     } = req;
 
+    console.dir(file, title, description);
+
     // TODO: 비디오 업로드 및 저장
     res.redirect(routes.videoDetail(324393));
 }
