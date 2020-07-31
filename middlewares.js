@@ -4,7 +4,7 @@ import routes from "./routes";
 const myStorage = multer.diskStorage({
     // 업로드할 파일 저장 위치
     destination: function (req, file, cb) {
-        cb(null, 'videos/')
+        cb(null, 'uploads/videos/')
     },
     // 업로드될 파일이름 설정
     filename: function(req, file, cb) {
@@ -14,7 +14,6 @@ const myStorage = multer.diskStorage({
 });
 
 const multerVideo = multer({storage: myStorage});
-
 // const multerVideo = multer({dest: "videos/"});
  
 // const multerVideo = multer({
