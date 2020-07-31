@@ -8,7 +8,8 @@ import "./models/Video";
 import "./models/Comment";
 
 // 포트번호를 .env파일안에 숨겼음
-const PORT = process.env.PORT || 4000;
+// const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT;
 
 const handleListening = () => console.log(`✅ Listening on: http://localhost:${PORT}`);
 

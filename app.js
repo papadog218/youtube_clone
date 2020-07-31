@@ -27,11 +27,11 @@ const app = express();
 // ES6 화살표함수
 // const handleProfile = (req, res) => res.send("This is Profile area");
 
+
+// 미들웨어
+app.use(helmet()); // 그냥 보안을 위한거라고만;;
 // view engine 설정값을 pug로 변경 pug는 템플릿 언어임 익스프레스의 뷰엔진임
 app.set("view engine", "pug");
-
-// 미들웨어 재설정
-app.use(helmet()); // 그냥 보안을 위한거라고만;;
 app.use(cookieParser()); // 쿠키를 전달받아서 사용할 수 있도록 만들어줌(사용자인증)
 app.use(bodyParser.json()); // 사용자가 웹사이트로 전달하는 정보들을 검사함(form, json형태로 된 body를 검사)
 app.use(bodyParser.urlencoded({ extended: true })); // 서버로부터 온 데이터를 이해하는 방법
