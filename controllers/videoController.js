@@ -13,8 +13,8 @@ export const home = async (req, res) => {
         const videos = await Video.find({});
         // console.log(videos);
         res.render("home", { pageTitle:"Home", videos });
-    } catch (e) {
-        console.log(e);
+    } catch (err) {
+        console.log(err);
         res.render("home", { pageTitle:"Home", videos: [] });
     }
 };
@@ -28,18 +28,29 @@ export const search = (req, res) => {
 
 // export const videos = (req, res) => res.render("videos", { pageTitle:"Videos" });
 export const getUpload = (req, res) => res.render("upload", { pageTitle:"Upload" });
-export const postUpload = (req, res) => {
+export const postUpload = async(req, res) => {
     // res.render("upload", { pageTitle:"Upload" });
     // const {
     //     body: { file, title, description }
     // } = req;
-    const { body } = req;
+    // const { body, file } = req;
+    const {
+        body: {title, description},
+        file: {path}
+    } = req;
 
-    console.log(body);
+    const newVideo = await Video.create({
+        fileUrl: path,
+        title,
+        description
+    })
+
+    // console.log(body, file);
+    console.log(newVideo);
 
     // TODO: 비디오 업로드 및 저장
-    // res.redirect(routes.videoDetail(324393));
-    res.render("upload", { pageTitle:"Upload" })
+    res.redirect(routes.videoDetail(newVideo.id));
+    // res.render("upload", { pageTitle:"Upload" });
 }
 
 export const videoDetail = (req, res) => res.render("videoDetail", { pageTitle:"Video Detail" });
