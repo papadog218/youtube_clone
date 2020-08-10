@@ -71,7 +71,33 @@ export const videoDetail = async (req, res) => {
     res.redirect(routes.home);
   }
 };
-export const editVideo = (req, res) =>
-  res.render("editVideo", { pageTitle: "Edit Video" });
+// export const editVideo = (req, res) =>
+export const getEditVideo = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+
+  try {
+    const video = await Video.findById(id);
+    res.render("editVideo", { pageTitle: `Edit ${video.title}`, video });
+  } catch (err) {
+    res.redirect(routes.home);
+  }
+};
+export const postEditVideo = async (req, res) => {
+  const {
+    params: { id },
+    body: { title, description },
+  } = req;
+
+  try {
+    // await Video.findOneAndUpdate({ id }, { title, description }); 몽구스가 id가 뭔지를 몰라서 에러남
+    await Video.findOneAndUpdate({ _id: id }, { title, description });
+    res.render(routes.videoDetail(id));
+  } catch (err) {
+    console.log(err);
+    res.redirect(routes.home);
+  }
+};
 export const deleteVideo = (req, res) =>
   res.render("deleteVideo", { pageTitle: "Delete Video" });

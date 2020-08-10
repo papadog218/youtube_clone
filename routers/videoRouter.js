@@ -1,16 +1,27 @@
 import express from "express";
 import routes from "../routes";
-import { videos, videoDetail, editVideo, deleteVideo, getUpload, postUpload } from "../controllers/videoController";
+import {
+  getUpload,
+  postUpload,
+  videoDetail,
+  deleteVideo,
+  getEditVideo,
+  postEditVideo,
+} from "../controllers/videoController";
 import { uploadVideo } from "../middlewares";
 
 const videoRouter = express.Router();
 
+// upload
 // videoRouter.get(routes.home, videos);
 videoRouter.get(routes.upload, getUpload);
 videoRouter.post(routes.upload, uploadVideo, postUpload);
-
+// detail
 videoRouter.get(routes.videoDetail(), videoDetail);
-videoRouter.get(routes.editVideo, editVideo);
+// edit
+videoRouter.get(routes.editVideo(), getEditVideo);
+videoRouter.post(routes.editVideo(), postEditVideo);
+// delete
 videoRouter.get(routes.deleteVideo, deleteVideo);
 
 // videoRouter JS 파일 전체를 내보낸다는 뜻
