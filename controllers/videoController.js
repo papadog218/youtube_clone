@@ -6,53 +6,59 @@ import Video from "../models/Video";
 // async = JS언어임 특정 조건이 실행될 동안 다음 단계를 기다리게 할수있음
 // 비디오를 살펴보라는 조건을 줄것임
 export const home = async (req, res) => {
-    // await은 다음 과정이 끝날때까지 기다리라는 의미 (성공 실패여부와는 상관없음)
-    // async 없이는 사용못함
-    // 에러가나도 뒤의 render 를 실행할 것임으로 try~catch로 잡아줌
-    try {
-        const videos = await Video.find({});
-        // console.log(videos);
-        res.render("home", { pageTitle:"Home", videos });
-    } catch (err) {
-        console.log(err);
-        res.render("home", { pageTitle:"Home", videos: [] });
-    }
+  // await은 다음 과정이 끝날때까지 기다리라는 의미 (성공 실패여부와는 상관없음)
+  // async 없이는 사용못함
+  // 에러가나도 뒤의 render 를 실행할 것임으로 try~catch로 잡아줌
+  try {
+    const videos = await Video.find({});
+    // console.log(videos);
+    res.render("home", { pageTitle: "Home", videos });
+  } catch (err) {
+    console.log(err);
+    res.render("home", { pageTitle: "Home", videos: [] });
+  }
 };
 
 export const search = (req, res) => {
-    // console.log(req.query.term);
-    // const keyword = req.query.term; // ES6 이전 방식
-    const {query: { term: keyword} } = req; // ES6 방식
-    res.render("search", { pageTitle:"Search", keyword, videos });
+  // console.log(req.query.term);
+  // const keyword = req.query.term; // ES6 이전 방식
+  const {
+    query: { term: keyword },
+  } = req; // ES6 방식
+  res.render("search", { pageTitle: "Search", keyword, videos });
 };
 
 // export const videos = (req, res) => res.render("videos", { pageTitle:"Videos" });
-export const getUpload = (req, res) => res.render("upload", { pageTitle:"Upload" });
-export const postUpload = async(req, res) => {
-    // res.render("upload", { pageTitle:"Upload" });
-    // const {
-    //     body: { file, title, description }
-    // } = req;
-    // const { body, file } = req;
-    const {
-        body: {title, description},
-        file: {path}
-    } = req;
+export const getUpload = (req, res) =>
+  res.render("upload", { pageTitle: "Upload" });
+export const postUpload = async (req, res) => {
+  // res.render("upload", { pageTitle:"Upload" });
+  // const {
+  //     body: { file, title, description }
+  // } = req;
+  // const { body, file } = req;
+  const {
+    body: { title, description },
+    file: { path },
+  } = req;
 
-    const newVideo = await Video.create({
-        fileUrl: path,
-        title,
-        description
-    })
+  const newVideo = await Video.create({
+    fileUrl: path,
+    title,
+    description,
+  });
 
-    // console.log(body, file);
-    console.log(newVideo);
+  // console.log(body, file);
+  console.log(newVideo);
 
-    // TODO: 비디오 업로드 및 저장
-    res.redirect(routes.videoDetail(newVideo.id));
-    // res.render("upload", { pageTitle:"Upload" });
-}
+  // TODO: 비디오 업로드 및 저장
+  res.redirect(routes.videoDetail(newVideo.id));
+  // res.render("upload", { pageTitle:"Upload" });
+};
 
-export const videoDetail = (req, res) => res.render("videoDetail", { pageTitle:"Video Detail" });
-export const editVideo = (req, res) => res.render("editVideo", { pageTitle:"Edit Video" });
-export const deleteVideo = (req, res) => res.render("deleteVideo", { pageTitle:"Delete Video" });
+export const videoDetail = (req, res) =>
+  res.render("videoDetail", { pageTitle: "Video Detail" });
+export const editVideo = (req, res) =>
+  res.render("editVideo", { pageTitle: "Edit Video" });
+export const deleteVideo = (req, res) =>
+  res.render("deleteVideo", { pageTitle: "Delete Video" });
