@@ -22,7 +22,7 @@ videoRouter.get(routes.videoDetail(), videoDetail);
 videoRouter.get(routes.editVideo(), getEditVideo);
 videoRouter.post(routes.editVideo(), postEditVideo);
 // delete
-videoRouter.get(routes.deleteVideo, deleteVideo);
+videoRouter.get(routes.deleteVideo(), deleteVideo);
 
 // videoRouter JS 파일 전체를 내보낸다는 뜻
 export default videoRouter;

@@ -10,7 +10,7 @@ export const home = async (req, res) => {
   // async 없이는 사용못함
   // 에러가나도 뒤의 render 를 실행할 것임으로 try~catch로 잡아줌
   try {
-    const videos = await Video.find({});
+    const videos = await Video.find({}).sort({ _id: -1 });
     // console.log(videos);
     res.render("home", { pageTitle: "Home", videos });
   } catch (err) {
@@ -56,7 +56,7 @@ export const videoDetail = async (req, res) => {
   try {
     const video = await Video.findById(id);
     // console.log(video);
-    res.render("videoDetail", { pageTitle: "Video Detail", video });
+    res.render("videoDetail", { pageTitle: video.title, video });
   } catch (err) {
     // console.log(err);
     res.redirect(routes.home);
@@ -89,5 +89,12 @@ export const postEditVideo = async (req, res) => {
     res.redirect(routes.home);
   }
 };
-export const deleteVideo = (req, res) =>
-  res.render("deleteVideo", { pageTitle: "Delete Video" });
+export const deleteVideo = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  try {
+    await Video.findByIdAndRemove({ _id: id });
+  } catch (err) {}
+  res.redirect(routes.home);
+};
