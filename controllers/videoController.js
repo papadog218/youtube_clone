@@ -23,20 +23,16 @@ export const search = (req, res) => {
   // console.log(req.query.term);
   // const keyword = req.query.term; // ES6 이전 방식
   const {
-    query: { term: keyword },
+    query: { term: searchingBy },
   } = req; // ES6 방식
-  res.render("search", { pageTitle: "Search", keyword, videos });
+  res.render("search", { pageTitle: "Search", searchingBy, videos });
 };
 
 // export const videos = (req, res) => res.render("videos", { pageTitle:"Videos" });
 export const getUpload = (req, res) =>
   res.render("upload", { pageTitle: "Upload" });
+
 export const postUpload = async (req, res) => {
-  // res.render("upload", { pageTitle:"Upload" });
-  // const {
-  //     body: { file, title, description }
-  // } = req;
-  // const { body, file } = req;
   const {
     body: { title, description },
     file: { path },
@@ -48,16 +44,11 @@ export const postUpload = async (req, res) => {
     description,
   });
 
-  // console.log(body, file);
-  console.log(newVideo);
-
   // TODO: 비디오 업로드 및 저장
   res.redirect(routes.videoDetail(newVideo.id));
-  // res.render("upload", { pageTitle:"Upload" });
 };
 
 export const videoDetail = async (req, res) => {
-  //   console.log(req.params);
   const {
     params: { id },
   } = req;
@@ -65,13 +56,13 @@ export const videoDetail = async (req, res) => {
   try {
     const video = await Video.findById(id);
     // console.log(video);
-    res.render("videoDetail", { pageTitle: "Video Detail", video: video });
+    res.render("videoDetail", { pageTitle: "Video Detail", video });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.redirect(routes.home);
   }
 };
-// export const editVideo = (req, res) =>
+
 export const getEditVideo = async (req, res) => {
   const {
     params: { id },
@@ -91,7 +82,6 @@ export const postEditVideo = async (req, res) => {
   } = req;
 
   try {
-    // await Video.findOneAndUpdate({ id }, { title, description }); 몽구스가 id가 뭔지를 몰라서 에러남
     await Video.findOneAndUpdate({ _id: id }, { title, description });
     res.render(routes.videoDetail(id));
   } catch (err) {
