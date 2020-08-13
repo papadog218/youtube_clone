@@ -31,6 +31,7 @@ const app = express();
 app.use(helmet()); // 그냥 보안을 위한거라고만;;
 app.set("view engine", "pug"); // view engine 설정값을 pug로 변경 pug는 템플릿 언어임 익스프레스의 뷰엔진임
 app.use("/uploads", express.static("uploads"));
+app.use("/static", express.static("static"));
 app.use(cookieParser()); // 쿠키를 전달받아서 사용할 수 있도록 만들어줌(사용자인증)
 app.use(bodyParser.json()); // 사용자가 웹사이트로 전달하는 정보들을 검사함(form, json형태로 된 body를 검사)
 app.use(bodyParser.urlencoded({ extended: true })); // 서버로부터 온 데이터를 이해하는 방법

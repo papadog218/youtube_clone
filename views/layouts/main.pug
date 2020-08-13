@@ -6,8 +6,10 @@ html(lang="en")
         title #{pageTitle} | #{siteName} Clone
         //- link(rel="stylesheet", href="./css/reset.css")
         script(src="https://kit.fontawesome.com/9b1d6e34ef.js", crossorigin="anonymous")
+        link(rel="stylesheet", href="/static/styles.css")
     body
         include ../partials/header
         main
             block content
         include ../partials/footer
+        script(src="/static/main.js")
