@@ -19,12 +19,22 @@ export const home = async (req, res) => {
   }
 };
 
-export const search = (req, res) => {
+export const search = async (req, res) => {
   // console.log(req.query.term);
   // const keyword = req.query.term; // ES6 이전 방식
   const {
     query: { term: searchingBy },
   } = req; // ES6 방식
+
+  let videos = [];
+
+  try {
+    videos = await Video.find({
+      title: { $regex: searchingBy, $options: "i" },
+    });
+  } catch (err) {
+    console.log("");
+  }
   res.render("search", { pageTitle: "Search", searchingBy, videos });
 };
 
@@ -96,6 +106,8 @@ export const deleteVideo = async (req, res) => {
 
   try {
     await Video.findOneAndRemove({ _id: id });
-  } catch (err) {}
+  } catch (err) {
+    console.log(err);
+  }
   res.redirect(routes.home);
 };
