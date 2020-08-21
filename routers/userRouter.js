@@ -1,6 +1,11 @@
 import express from "express";
 import routes from "../routes";
-import { users, userDetail, editProfile, changePassword } from "../controllers/userController";
+import {
+  userDetail,
+  editProfile,
+  changePassword,
+} from "../controllers/userController";
+import { onlyPrivate } from "../middlewares";
 
 const userRouter = express.Router();
 
@@ -12,8 +17,8 @@ const userRouter = express.Router();
         디테일 화면이 나오는 버그가 있었음(최종적으로 디테일이 맨 밑으로 내려가게됨)
 */
 
-userRouter.get(routes.editProfile, editProfile);
-userRouter.get(routes.changePassword, changePassword);
+userRouter.get(routes.editProfile, onlyPrivate, editProfile);
+userRouter.get(routes.changePassword, onlyPrivate, changePassword);
 userRouter.get(routes.userDetail(), userDetail);
 
 export default userRouter;

@@ -1,9 +1,10 @@
 //- Use join & login page
 .sns-login
     button.github
-        span
-            i.fab.fa-github
-        | Continue with GitHub
+        a(href=routes.github)
+            span
+                i.fab.fa-github
+            | Continue with GitHub
     button.facebook
         span
             i.fab.fa-facebook
