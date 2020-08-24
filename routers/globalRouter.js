@@ -10,7 +10,7 @@ import {
   githubLogin,
   postGithubLogin,
 } from "../controllers/userController";
-import { onlyPublic } from "../middlewares";
+import { onlyPublic, onlyPrivate } from "../middlewares";
 import passport from "passport";
 
 const globalRouter = express.Router();
@@ -23,7 +23,7 @@ globalRouter.post(routes.login, onlyPublic, postLogin);
 
 globalRouter.get(routes.home, home);
 globalRouter.get(routes.search, search);
-globalRouter.get(routes.logout, onlyPublic, logout);
+globalRouter.get(routes.logout, onlyPrivate, logout);
 
 globalRouter.get(routes.github, githubLogin);
 globalRouter.get(
