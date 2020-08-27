@@ -46,6 +46,7 @@ export const githubLoginCallback = async (
   cb
 ) => {
   const {
+    // _json: { id, avatar_url: avatarUrl, name, email }, //_jsom안에 avatar_url을 avatarUrl로 변경
     _json: { id, avatar_url, name, email },
   } = profile;
   try {
