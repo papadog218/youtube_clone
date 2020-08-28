@@ -2,6 +2,7 @@ import express from "express";
 import routes from "../routes";
 import { home, search } from "../controllers/videoController";
 import {
+  getMe,
   getJoin,
   postJoin,
   getLogin,
@@ -31,5 +32,8 @@ globalRouter.get(
   passport.authenticate("github", { failureRedirect: "/login" }),
   postGithubLogin
 );
+
+globalRouter.get(routes.me, getMe);
+
 // globalRouter JS 파일 전체를 내보낸다는 뜻
 export default globalRouter;
