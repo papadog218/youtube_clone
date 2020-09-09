@@ -4,18 +4,15 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // MONGO_URL을 .env파일에 숨겼음
-mongoose.connect(
-    process.env.MONGO_URL,
-    {
-        useNewUrlParser: true
-        ,useFindAndModify: false
-        // ,useUnifiedTopology: true
-    }
-);
+mongoose.connect(process.env.MONGO_URL, {
+  useNewUrlParser: true,
+  useFindAndModify: false,
+  // ,useUnifiedTopology: true
+});
 
 const db = mongoose.connection;
 const handleOpen = () => console.log("✅ Connected to DB");
-const handleError = (err) => console.log(`❌ Error on DB Connection: ${err}`)
+const handleError = (err) => console.log(`❌ Error on DB Connection: ${err}`);
 
 db.once("open", handleOpen);
 db.on("error", handleError);
