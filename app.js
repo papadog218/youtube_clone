@@ -14,7 +14,6 @@ import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 import globalRouter from "./routers/globalRouter";
 import "./passport";
-import mssql from "mssql";
 
 // export default를 안했으면 아래처럼 불러와야함
 // import { userRouter } from "./routers/userRouter";
@@ -52,31 +51,6 @@ app.use(
     store: new CokieStore({ mongooseConnection: mongoose.connection }),
   })
 );
-
-const msConfig = {
-  user: process.env.MS_USER,
-  password: process.env.MS_PWD,
-  server: process.env.MS_SERVER,
-  database: process.env.MS_DBNAME,
-  options: {
-    encrypt: true,
-  },
-};
-
-// console.dir(msConfig);
-
-mssql.connect(msConfig, (err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    new mssql.Request().query(
-      "select * from tblLogin where LOG_ID = 2019014",
-      (err, result) => {
-        console.dir(result);
-      }
-    );
-  }
-});
 
 app.use(passport.initialize());
 app.use(passport.session());
