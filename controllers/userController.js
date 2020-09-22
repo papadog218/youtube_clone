@@ -1,6 +1,7 @@
 import passport from "passport";
 import routes from "../routes";
 import User from "../models/User";
+const { mssql, poolPromise } = require("../db.js");
 
 export const getJoin = (req, res) => {
   res.render("join", { pageTitle: "Join" });
@@ -37,6 +38,27 @@ export const postLogin = passport.authenticate("local", {
   failureRedirect: routes.login,
   successRedirect: routes.home,
 });
+
+export const getMSLogin = (req, res) =>
+  res.render("msLogin", { pageTitle: "MS Login" });
+export const postMSLogin = async (req, res) => {
+  console.log(req.body);
+  const {
+    body: { id, password },
+  } = req;
+  try {
+    const pool = await poolPromise;
+    const result = await pool
+      .request()
+      .query(
+        `select * from ${process.env.MS_TBLNAME} where LOG_ID = '${id}' and LOG_PWD = '${password}'`
+      );
+    res.json(result.recordset);
+  } catch (err) {
+    res.status(500);
+    res.send(err.message);
+  }
+};
 
 export const githubLogin = passport.authenticate("github");
 export const githubLoginCallback = async (

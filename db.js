@@ -28,15 +28,28 @@ const msConfig = {
   },
 };
 
-mssql.connect(msConfig, (err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    new mssql.Request().query(
-      "select * from tblLogin where LOG_ID = 2019014",
-      (err, result) => {
-        console.dir(result);
-      }
-    );
-  }
-});
+// mssql.connect(msConfig, (err) => {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     new mssql.Request().query(
+//       "select * from tblLogin where LOG_ID = 2019014",
+//       (err, result) => {
+//         console.dir(result.recordset);
+//       }
+//     );
+//   }
+// });
+
+const poolPromise = new mssql.ConnectionPool(msConfig)
+  .connect()
+  .then((pool) => {
+    console.log("Connected to MSSQL");
+    return pool;
+  })
+  .catch((err) => console.log("Database Connection Failed! Bad Config: ", err));
+
+module.exports = {
+  mssql,
+  poolPromise,
+};

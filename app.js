@@ -53,31 +53,6 @@ app.use(
   })
 );
 
-// const msConfig = {
-//   user: process.env.MS_USER,
-//   password: process.env.MS_PWD,
-//   server: process.env.MS_SERVER,
-//   database: process.env.MS_DBNAME,
-//   options: {
-//     encrypt: true,
-//   },
-// };
-
-// console.dir(msConfig);
-
-// mssql.connect(msConfig, (err) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     new mssql.Request().query(
-//       "select * from tblLogin where LOG_ID = 2019014",
-//       (err, result) => {
-//         console.dir(result);
-//       }
-//     );
-//   }
-// });
-
 app.use(passport.initialize());
 app.use(passport.session());
 

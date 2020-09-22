@@ -10,6 +10,8 @@ import {
   logout,
   githubLogin,
   postGithubLogin,
+  getMSLogin,
+  postMSLogin,
 } from "../controllers/userController";
 import { onlyPublic, onlyPrivate } from "../middlewares";
 import passport from "passport";
@@ -21,6 +23,9 @@ globalRouter.post(routes.join, onlyPublic, postJoin, postLogin);
 
 globalRouter.get(routes.login, onlyPublic, getLogin);
 globalRouter.post(routes.login, onlyPublic, postLogin);
+
+globalRouter.get(routes.msLogin, onlyPublic, getMSLogin);
+globalRouter.post(routes.msLogin, onlyPublic, postMSLogin);
 
 globalRouter.get(routes.home, home);
 globalRouter.get(routes.search, search);
