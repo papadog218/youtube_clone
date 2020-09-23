@@ -120,4 +120,4 @@ dist
 package-lock.json
 uploads
 static
-query.json
+sequelize.json

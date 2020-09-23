@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
 import mssql from "mssql";
+import mongoose from "mongoose";
 // .env 파일에 정보를 가져다 쓰기 위해서 사용함 (일종의 암호화 작업)
 import dotenv from "dotenv";
 dotenv.config();

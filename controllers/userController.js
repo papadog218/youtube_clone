@@ -1,4 +1,4 @@
-import passport from "passport";
+import passport, { session } from "passport";
 import routes from "../routes";
 import User from "../models/User";
 const { mssql, poolPromise } = require("../db.js");
@@ -42,7 +42,7 @@ export const postLogin = passport.authenticate("local", {
 export const getMSLogin = (req, res) =>
   res.render("msLogin", { pageTitle: "MS Login" });
 export const postMSLogin = async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const {
     body: { id, password },
   } = req;
@@ -51,10 +51,25 @@ export const postMSLogin = async (req, res) => {
     const result = await pool
       .request()
       .query(
-        `select * from ${process.env.MS_TBLNAME} where LOG_ID = '${id}' and LOG_PWD = '${password}'`
+        `select LOG_MBR_NUM, LOG_PWD from ${process.env.MS_TBLNAME} where LOG_ID = '${id}' and LOG_PWD = '${password}'`
       );
-    res.json(result.recordset);
+    if (result.recordset.length !== 0) {
+      // res.json(result.recordset.LOG_PWD);
+      // console.log("PWD is " + res.json(result.recordset));
+      const userPWD = result.recordset[0].LOG_PWD;
+      const userKEY = result.recordset[0].LOG_MBR_NUM;
+      if (userPWD !== password) {
+        res.redirect(routes.msLogin);
+      } else {
+        // 세션에 저장 후 메인화면으로
+        req.session.create("login", userKEY);
+      }
+    } else {
+      console.log(result.recordset.length);
+      res.redirect(routes.msLogin);
+    }
   } catch (err) {
+    console.log("query ERROR!! ... " + err);
     res.status(500);
     res.send(err.message);
   }
